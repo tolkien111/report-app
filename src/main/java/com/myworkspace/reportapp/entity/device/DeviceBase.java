@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -21,7 +22,9 @@ public class DeviceBase {
     private String internalId;
     private int revision;
 
-    public DeviceBase(String name, String internalId, int revision) {
+    public DeviceBase(@NonNull String name,
+                      @NonNull String internalId,
+                      int revision) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.internalId = internalId;

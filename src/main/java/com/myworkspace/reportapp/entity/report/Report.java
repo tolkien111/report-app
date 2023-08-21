@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +27,12 @@ public class Report {
     @Column(length = 4000)
     private String description;
 
-    public Report(String title, LocalDate reportDate, LocalDateTime startWork, LocalDateTime endWork, int overallWorkingHours, String description) {
+    public Report(@NonNull String title,
+                  @NonNull LocalDate reportDate,
+                  @NonNull LocalDateTime startWork,
+                  @NonNull LocalDateTime endWork,
+                  int overallWorkingHours,
+                  @NonNull String description) {
         this.id = UUID.randomUUID();
         this.title = title;
         this.reportDate = reportDate;

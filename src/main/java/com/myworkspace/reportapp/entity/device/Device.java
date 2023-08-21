@@ -32,7 +32,8 @@ public class Device {
     private List<Report> reportList;
 
 
-    public Device(@NonNull String serialNumber,@NonNull DeviceBase deviceBase) {
+    public Device(@NonNull String serialNumber,
+                  @NonNull DeviceBase deviceBase) {
         this.id = UUID.randomUUID();
         this.serialNumber = serialNumber;
         this.deviceBase = deviceBase;

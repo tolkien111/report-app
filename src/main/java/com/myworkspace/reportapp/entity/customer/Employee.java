@@ -24,7 +24,11 @@ public class Employee extends User {
     @JoinColumn(name = "employee_id")
     private List<Report> reportList;
 
-    public Employee(@NonNull String email,@NonNull String phoneNumber,@NonNull String firstName,@NonNull String lastName,@NonNull String password) {
+    public Employee(@NonNull String email,
+                    @NonNull String phoneNumber,
+                    @NonNull String firstName,
+                    @NonNull String lastName,
+                    @NonNull String password) {
         super(email, phoneNumber);
         this.firstName = firstName;
         this.lastName = lastName;

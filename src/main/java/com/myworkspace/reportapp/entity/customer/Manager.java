@@ -20,7 +20,11 @@ public class Manager extends User{
         private String password;
 
 
-    public Manager(@NonNull String email,@NonNull String phoneNumber,@NonNull String firstName,@NonNull String lastName,@NonNull String password) {
+    public Manager(@NonNull String email,
+                   @NonNull String phoneNumber,
+                   @NonNull String firstName,
+                   @NonNull String lastName,
+                   @NonNull String password) {
         super(email, phoneNumber);
         this.firstName = firstName;
         this.lastName = lastName;

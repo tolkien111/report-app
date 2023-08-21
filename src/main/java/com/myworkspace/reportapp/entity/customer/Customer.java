@@ -28,7 +28,10 @@ public class Customer extends User {
     @JoinColumn(name = "customer_id")
     private List<Report> reportList;
 
-    public Customer(@NonNull String email, @NonNull String phoneNumber, @NonNull String name, @NonNull String address) {
+    public Customer(@NonNull String email,
+                    @NonNull String phoneNumber,
+                    @NonNull String name,
+                    @NonNull String address) {
         super(email, phoneNumber);
         this.name = name;
         this.address = address;
