@@ -20,8 +20,7 @@ public class Employee extends User {
     private String lastName;
     private String password;
 
-    @OneToMany(cascade =  CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<Report> reportList;
 
     public Employee(@NonNull String email,
@@ -37,8 +36,10 @@ public class Employee extends User {
     }
 
     public void addReport(Report report) {
-        if (report != null & !reportList.contains(report))
+        if (report != null & !reportList.contains(report)) {
+            report.setEmployee(this);
             reportList.add(report);
+        }
     }
 
     @Override
@@ -47,12 +48,12 @@ public class Employee extends User {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+        return firstName.equals(employee.firstName) && lastName.equals(employee.lastName) && password.equals(employee.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), firstName, lastName);
+        return Objects.hash(super.hashCode(), firstName, lastName, password);
     }
 
     @Override

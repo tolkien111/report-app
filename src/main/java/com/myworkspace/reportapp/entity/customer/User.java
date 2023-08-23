@@ -1,6 +1,5 @@
 package com.myworkspace.reportapp.entity.customer;
 
-
 import com.myworkspace.reportapp.entity.customer.enums.UserType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -10,7 +9,6 @@ import lombok.NonNull;
 
 import java.util.Objects;
 import java.util.UUID;
-
 
 @Entity
 @Table(name = "users")
@@ -43,12 +41,12 @@ public abstract class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && userType == user.userType;
+        return Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, phoneNumber, userType);
+        return Objects.hash(id, email, phoneNumber);
     }
 
     @Override
@@ -58,7 +56,6 @@ public abstract class User {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", activeUser=" + activeUser +
-                ", userType=" + userType +
                 '}';
     }
 }

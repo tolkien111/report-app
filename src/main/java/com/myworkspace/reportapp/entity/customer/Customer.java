@@ -20,12 +20,10 @@ public class Customer extends User {
     private String name;
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Device> deviceList;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Report> reportList;
 
     public Customer(@NonNull String email,
@@ -39,25 +37,26 @@ public class Customer extends User {
         this.reportList = new ArrayList<>();
     }
 
+    public void addDevice(Device device) {
+        if (device != null & !deviceList.contains(device))
+            device.setCustomer(this);
+        deviceList.add(device);
+    }
+
+    public void addReport(Report report) {
+        if (report != null & !reportList.contains(report))
+            report.setCustomer(this);
+        reportList.add(report);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(name, customer.name) && Objects.equals(address, customer.address);
+        return name.equals(customer.name) && address.equals(customer.address);
     }
-
-    public void addDevice(Device device) {
-        if (device != null & !deviceList.contains(device))
-            deviceList.add(device);
-    }
-
-    public void addReport(Report report) {
-        if (report != null & !reportList.contains(report))
-            reportList.add(report);
-    }
-
 
     @Override
     public int hashCode() {

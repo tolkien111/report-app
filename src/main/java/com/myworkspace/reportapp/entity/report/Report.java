@@ -1,5 +1,8 @@
 package com.myworkspace.reportapp.entity.report;
 
+import com.myworkspace.reportapp.entity.customer.Customer;
+import com.myworkspace.reportapp.entity.customer.Employee;
+import com.myworkspace.reportapp.entity.device.Device;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,10 +11,13 @@ import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table (name = "reports")
+@Table(name = "reports")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Report {
@@ -27,6 +33,15 @@ public class Report {
     @Column(length = 4000)
     private String description;
 
+    @ManyToOne
+    private Employee employee;
+
+    @ManyToOne
+    private Customer customer;
+
+    @ManyToMany(mappedBy = "reportList", fetch = FetchType.LAZY)
+    private List<Device> deviceList;
+
     public Report(@NonNull String title,
                   @NonNull LocalDate reportDate,
                   @NonNull LocalDateTime startWork,
@@ -40,6 +55,28 @@ public class Report {
         this.endWork = endWork;
         this.overallWorkingHours = overallWorkingHours;
         this.description = description;
+        this.deviceList = new ArrayList<>();
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Report report = (Report) o;
+        return overallWorkingHours == report.overallWorkingHours && id.equals(report.id) && title.equals(report.title) && reportDate.equals(report.reportDate) && startWork.equals(report.startWork) && endWork.equals(report.endWork) && description.equals(report.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, reportDate, startWork, endWork, overallWorkingHours, description);
     }
 
     @Override
@@ -54,4 +91,6 @@ public class Report {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+
 }

@@ -13,11 +13,11 @@ import java.util.Objects;
 @DiscriminatorValue("MANAGER")
 @NoArgsConstructor
 @Getter
-public class Manager extends User{
+public class Manager extends User {
 
-        private String firstName;
-        private String lastName;
-        private String password;
+    private String firstName;
+    private String lastName;
+    private String password;
 
 
     public Manager(@NonNull String email,

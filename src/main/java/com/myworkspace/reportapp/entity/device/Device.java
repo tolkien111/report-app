@@ -1,6 +1,6 @@
 package com.myworkspace.reportapp.entity.device;
 
-
+import com.myworkspace.reportapp.entity.customer.Customer;
 import com.myworkspace.reportapp.entity.report.Report;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -27,9 +27,14 @@ public class Device {
     @JoinColumn(name = "device_base_id")
     private DeviceBase deviceBase;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "device_id")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(name = "devices_reports",
+            joinColumns = @JoinColumn(name = "device_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "report_id", referencedColumnName = "id"))
     private List<Report> reportList;
+
+    @ManyToOne
+    private Customer customer;
 
 
     public Device(@NonNull String serialNumber,
@@ -38,6 +43,17 @@ public class Device {
         this.serialNumber = serialNumber;
         this.deviceBase = deviceBase;
         this.reportList = new ArrayList<>();
+    }
+
+    public void addReport(Report report) {
+        if (report != null & !reportList.contains(report)) {
+            report.getDeviceList().add(this);
+            reportList.add(report);
+        }
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
