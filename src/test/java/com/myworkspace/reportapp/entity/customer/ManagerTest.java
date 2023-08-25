@@ -15,8 +15,10 @@ class ManagerTest extends EntityTest {
                 "Alan",
                 "James",
                 "bbb");
+
         //WHEN
         persistObject(manager);
+
         //THEN
         final var readManager = em.find(Manager.class, manager.getId());
         assertEquals(manager, readManager);

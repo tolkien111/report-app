@@ -14,8 +14,10 @@ class EmployeeTest extends EntityTest {
                 "Alan",
                 "James",
                 "bbb");
+
         //WHEN
         persistObject(employee);
+
         //THEN
         final var readEmployee = em.find(Employee.class, employee.getId());
         assertEquals(employee, readEmployee);

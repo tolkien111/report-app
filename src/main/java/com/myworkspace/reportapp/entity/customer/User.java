@@ -28,6 +28,7 @@ public abstract class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
+
     public User(@NonNull String email,
                 @NonNull String phoneNumber) {
         this.id = UUID.randomUUID();

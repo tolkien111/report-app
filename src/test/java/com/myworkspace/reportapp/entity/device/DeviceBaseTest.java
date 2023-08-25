@@ -11,8 +11,10 @@ class DeviceBaseTest extends EntityTest {
     void shouldSaveDeviceBase(){
         //GIVEN
         final var deviceBase = new DeviceBase("ScanBox 6130", "1ASD230421", 3);
+
         //WHEN
         persistObject(deviceBase);
+
         //THEN
         final var readDeviceBase = em.find(DeviceBase.class, deviceBase.getId());
         assertEquals(deviceBase, readDeviceBase);

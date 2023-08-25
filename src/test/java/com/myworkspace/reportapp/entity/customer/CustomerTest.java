@@ -42,7 +42,6 @@ class CustomerTest extends EntityTest {
         em.clear();
 
         //THEN
-
         final var readCustomer = em.find(Customer.class, customer.getId());
         assertEquals(device, readCustomer.getDeviceList().get(0));
     }

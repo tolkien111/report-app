@@ -16,7 +16,6 @@ class DeviceTest extends EntityTest {
         //WHEN
         persistObject(device);
 
-
         //THEN
         final var readDevice = em.find(Device.class, device.getId());
         assertEquals(deviceBase, readDevice.getDeviceBase());
