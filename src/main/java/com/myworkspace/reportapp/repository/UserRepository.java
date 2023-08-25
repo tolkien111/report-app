@@ -14,7 +14,7 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Query("FROM Employee e")
-    Page <Employee> findAllEmployees(Pageable pageable);
+    Page<Employee> findAllEmployees(Pageable pageable);
 
     @Query("FROM Manager m")
     List<Manager> findAllManagers();

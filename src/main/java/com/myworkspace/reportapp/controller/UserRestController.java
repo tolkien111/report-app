@@ -30,7 +30,7 @@ public class UserRestController {
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(defaultValue = "lastName") String sortBy,
             @RequestParam(defaultValue = "ASC") Direction direction
-            ){
+    ) {
         Pageable pageable = PageRequest.of(page, size, direction, sortBy);
         List<EmployeeView> employees = userService.getAllEmployees(pageable);
         return ResponseEntity.ok(employees);
