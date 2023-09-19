@@ -5,6 +5,7 @@ import com.myworkspace.reportapp.entity.customer.Employee;
 import com.myworkspace.reportapp.entity.customer.Manager;
 import com.myworkspace.reportapp.repository.UserRepository;
 import com.myworkspace.reportapp.service.dto.mapper.UserMapper;
+import com.myworkspace.reportapp.service.dto.sorting.EmployeeAndManagerSortColumn;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +45,14 @@ class UserServiceTest {
         int page = 0;
         int size = 20;
         Direction direction = Direction.ASC;
-        String sortBy = "lastName";
-        Pageable pageable = PageRequest.of(page, size, direction, sortBy);
-        final var readOnlyEmployeeList = userService.getAllEmployees(pageable);
+        EmployeeAndManagerSortColumn sortBy = EmployeeAndManagerSortColumn.LAST_NAME;
+        Pageable pageable = PageRequest.of(page, size, direction, sortBy.getColumnName());
+        final var readOnlyEmployeePage = userService.getAllEmployees(pageable);
 
         //THEN
-        assertEquals(2, readOnlyEmployeeList.size());
-        assertEquals(userMapper.employeeEntityToView(employee2), readOnlyEmployeeList.get(0));
-        assertEquals(userMapper.employeeEntityToView(employee1), readOnlyEmployeeList.get(1));
+        assertEquals(2, readOnlyEmployeePage.getTotalElements());
+        assertEquals(userMapper.employeeEntityToView(employee2), readOnlyEmployeePage.toList().get(0));
+        assertEquals(userMapper.employeeEntityToView(employee1), readOnlyEmployeePage.toList().get(1));
     }
 
 

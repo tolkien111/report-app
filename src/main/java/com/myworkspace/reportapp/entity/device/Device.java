@@ -46,7 +46,7 @@ public class Device {
     }
 
     public void addReport(Report report) {
-        if (report != null & !reportList.contains(report)) {
+        if (report != null && !reportList.contains(report)) {
             report.getDeviceList().add(this);
             reportList.add(report);
         }
@@ -75,7 +75,6 @@ public class Device {
                 "id=" + id +
                 ", serialNumber='" + serialNumber + '\'' +
                 ", deviceBase=" + deviceBase +
-                ", reportList=" + reportList +
                 '}';
     }
 }

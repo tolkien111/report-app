@@ -36,7 +36,7 @@ public class Employee extends User {
     }
 
     public void addReport(Report report) {
-        if (report != null & !reportList.contains(report)) {
+        if (report != null && !reportList.contains(report)) {
             report.setEmployee(this);
             reportList.add(report);
         }
@@ -48,12 +48,12 @@ public class Employee extends User {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Employee employee = (Employee) o;
-        return firstName.equals(employee.firstName) && lastName.equals(employee.lastName) && password.equals(employee.password);
+        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), firstName, lastName, password);
+        return Objects.hash(super.hashCode(), firstName, lastName);
     }
 
     @Override
@@ -61,8 +61,6 @@ public class Employee extends User {
         return "Employee{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
-                ", reportList=" + reportList +
                 "} " + super.toString();
     }
 }

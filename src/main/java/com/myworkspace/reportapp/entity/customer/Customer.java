@@ -38,13 +38,13 @@ public class Customer extends User {
     }
 
     public void addDevice(Device device) {
-        if (device != null & !deviceList.contains(device))
+        if (device != null && !deviceList.contains(device))
             device.setCustomer(this);
         deviceList.add(device);
     }
 
     public void addReport(Report report) {
-        if (report != null & !reportList.contains(report))
+        if (report != null && !reportList.contains(report))
             report.setCustomer(this);
         reportList.add(report);
     }
@@ -68,8 +68,6 @@ public class Customer extends User {
         return "Customer{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", deviceList=" + deviceList +
-                ", reportList=" + reportList +
                 "} " + super.toString();
     }
 }
