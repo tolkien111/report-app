@@ -1,5 +1,7 @@
 package com.myworkspace.reportapp.service;
 
+import com.myworkspace.reportapp.entity.customer.Employee;
+import com.myworkspace.reportapp.entity.customer.enums.UserType;
 import com.myworkspace.reportapp.repository.UserRepository;
 import com.myworkspace.reportapp.service.dto.employee.EmployeeView;
 import com.myworkspace.reportapp.service.dto.mapper.UserMapper;
@@ -23,7 +25,9 @@ public class UserService {
     private final UserMapper mapper;
 
     public Page<EmployeeView> getAllEmployees(Pageable pageable) {
-        return userRepository.findAllEmployees(pageable).map(mapper::employeeEntityToView);
+        return userRepository.findAllRelevantUsers(UserType.EMPLOYEE,pageable)
+                .map(user -> (Employee) user)
+                .map(mapper::employeeEntityToView);
 
     }
 }
