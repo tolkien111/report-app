@@ -50,7 +50,6 @@ public class Manager extends User {
         return "Manager{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
                 "} " + super.toString();
     }
 }

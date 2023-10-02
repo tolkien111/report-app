@@ -30,7 +30,7 @@ public class Report {
     private LocalDateTime endWork;
     private int overallWorkingHours;
 
-    @Column(length = 4000)
+    @Column(length = 4000) //argument wrzucić do application.properties
     private String description;
 
     @ManyToOne

@@ -68,6 +68,6 @@ public class Customer extends User {
         return "Customer{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                "} " + super.toString();
+                "} " + super.toString(); //auditing - przygotować na poziomie encji
     }
 }
