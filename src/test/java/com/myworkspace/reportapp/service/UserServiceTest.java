@@ -1,5 +1,6 @@
 package com.myworkspace.reportapp.service;
 
+import com.myworkspace.reportapp.config.pageable.PageProperties;
 import com.myworkspace.reportapp.entity.customer.Customer;
 import com.myworkspace.reportapp.entity.customer.Employee;
 import com.myworkspace.reportapp.entity.customer.Manager;
@@ -29,24 +30,28 @@ class UserServiceTest {
     UserRepository userRepository;
 
     @Autowired
+    private PageProperties pageProperties;
+
+    @Autowired
     UserMapper userMapper;
 
     @Test
-    void shouldFindOnlyEmployeesFromDb(){
+    void shouldFindOnlyEmployeesFromDb() {
         //GIVEN
         final var employee1 = new Employee("email1@gmail.com", "658481236", "Jane", "Zdonel", "admin123");
         final var employee2 = new Employee("email2@gmail.com", "123145698", "Jack", "Sparow", "pass456");
         final var manager1 = new Manager("email3@gmail.com", "669988554", "Jonny", "Bravo", "pass456");
         final var customer1 = new Customer("email4@gmail.com", "998877665", "Jack", "Bolton Street 10, London");
 
-        userRepository.saveAllAndFlush(List.of(employee1,employee2,manager1,customer1));
+        userRepository.saveAllAndFlush(List.of(employee1, employee2, manager1, customer1));
 
         //WHEN
-        int page = 0;
-        int size = 20;
-        Direction direction = Direction.ASC;
-        EmployeeAndManagerSortColumn sortBy = EmployeeAndManagerSortColumn.LAST_NAME;
-        Pageable pageable = PageRequest.of(page, size, direction, sortBy.getColumnName());
+        int page = pageProperties.getDefaultPage();
+        int size = pageProperties.getDefaultSize();
+        Direction direction = Direction.valueOf(pageProperties.getDefaultDirection());
+        String sortBy = EmployeeAndManagerSortColumn.valueOf(pageProperties.getDefaultSortBy()).getColumnName();
+
+        Pageable pageable = PageRequest.of(page, size, direction, sortBy);
         final var readOnlyEmployeePage = userService.getAllEmployees(pageable);
 
         //THEN
@@ -54,7 +59,6 @@ class UserServiceTest {
         assertEquals(userMapper.employeeEntityToView(employee2), readOnlyEmployeePage.toList().get(0));
         assertEquals(userMapper.employeeEntityToView(employee1), readOnlyEmployeePage.toList().get(1));
     }
-
 
 
 }

@@ -1,5 +1,6 @@
 package com.myworkspace.reportapp.controller;
 
+import com.myworkspace.reportapp.config.pageable.PageProperties;
 import com.myworkspace.reportapp.service.UserService;
 import com.myworkspace.reportapp.service.dto.employee.EmployeeView;
 import com.myworkspace.reportapp.service.dto.sorting.EmployeeAndManagerSortColumn;
@@ -19,13 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserRestController {
 
     private final UserService userService;
+    private final PageProperties pageProperties;
 
     @GetMapping("/employees") // Dodatkowo DB connection
     public ResponseEntity<Page<EmployeeView>> getAllEmployees(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size,
-            @RequestParam(defaultValue = "LAST_NAME") EmployeeAndManagerSortColumn sortBy, //utworzyć @ExceptionHandler
-            @RequestParam(defaultValue = "ASC") Direction direction
+            @RequestParam(defaultValue = "#{pageProperties.defaultPage}") int page,
+            @RequestParam(defaultValue = "#{pageProperties.defaultSize}") int size,
+            @RequestParam(defaultValue = "#{pageProperties.defaultSortBy}") EmployeeAndManagerSortColumn sortBy, //utworzyć @ExceptionHandler
+            @RequestParam(defaultValue = "#{pageProperties.defaultDirection}") Direction direction
     ) {
         return ResponseEntity.ok(userService.getAllEmployees(PageRequest.of(page, size, direction, sortBy.getColumnName())));
     }

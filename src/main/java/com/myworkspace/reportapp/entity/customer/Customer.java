@@ -1,17 +1,20 @@
 package com.myworkspace.reportapp.entity.customer;
 
+import com.myworkspace.reportapp.entity.auditing.Auditable;
 import com.myworkspace.reportapp.entity.device.Device;
 import com.myworkspace.reportapp.entity.report.Report;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @DiscriminatorValue("CUSTOMER")
 @NoArgsConstructor
 @Getter
@@ -25,6 +28,9 @@ public class Customer extends User {
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Report> reportList;
+
+    @Embedded
+    private Auditable auditable;
 
     public Customer(@NonNull String email,
                     @NonNull String phoneNumber,
