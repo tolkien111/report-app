@@ -8,7 +8,6 @@ import lombok.NonNull;
 
 import java.util.Objects;
 
-
 @Entity
 @DiscriminatorValue("MANAGER")
 @NoArgsConstructor

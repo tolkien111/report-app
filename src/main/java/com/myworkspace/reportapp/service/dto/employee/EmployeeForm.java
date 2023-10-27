@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
-public class EmployeeView {
+public class EmployeeForm {
 
     @NonNull
     private String firstName;
@@ -15,6 +15,7 @@ public class EmployeeView {
     @NonNull
     private String email;
     @NonNull
+    private String password;
+    @NonNull
     private String phoneNumber;
-
 }

@@ -1,22 +1,25 @@
 package com.myworkspace.reportapp.entity.customer;
 
+import com.myworkspace.reportapp.entity.auditing.Auditable;
 import com.myworkspace.reportapp.entity.customer.enums.UserType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public abstract class User {
+public abstract class User extends Auditable {
 
     @Id
     private UUID id;
@@ -28,6 +31,8 @@ public abstract class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
+    @Version
+    private long Version;
 
     public User(@NonNull String email,
                 @NonNull String phoneNumber) {

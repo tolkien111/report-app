@@ -1,6 +1,5 @@
 package com.myworkspace.reportapp.entity.customer;
 
-import com.myworkspace.reportapp.entity.auditing.Auditable;
 import com.myworkspace.reportapp.entity.device.Device;
 import com.myworkspace.reportapp.entity.report.Report;
 import jakarta.persistence.*;
@@ -28,9 +27,6 @@ public class Customer extends User {
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Report> reportList;
-
-    @Embedded
-    private Auditable auditable;
 
     public Customer(@NonNull String email,
                     @NonNull String phoneNumber,
@@ -74,6 +70,6 @@ public class Customer extends User {
         return "Customer{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                "} " + super.toString(); //auditing - przygotować na poziomie encji
+                "} " + super.toString();
     }
 }

@@ -1,14 +1,14 @@
 package com.myworkspace.reportapp.entity.auditing;
 
-import jakarta.persistence.Embeddable;
-import lombok.*;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
 import org.springframework.data.annotation.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-
-@Embeddable
-@Data
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class Auditable {
 
     @CreatedBy
@@ -22,7 +22,4 @@ public class Auditable {
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
-
-    @Version
-    private Long version;
 }
